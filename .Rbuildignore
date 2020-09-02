@@ -15,3 +15,4 @@
 ^inst/tutorials/r2dii-data/r2dii-data\.Rmd$
 ^inst/tutorials/r2dii-match/r2dii-match\.Rmd$
 ^inst/tutorials/r2dii-analysis/r2dii-analysis\.Rmd$
+^install\.R$
