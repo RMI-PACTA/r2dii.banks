@@ -1,0 +1,28 @@
+---
+title: "Get started with r2dii.data"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  exercise = TRUE,
+  exercise.eval = TRUE,
+  error = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+
+lines <- r2dii.banks:::readme_from(
+  "maurolepore", "r2dii.data", branch = "label-chunks"
+)
+path <- tempfile("readme")
+writeLines(lines, path)
+```
+
+
+```{r reuse, child=path}
+
+```

@@ -39,7 +39,8 @@ Suggests:
     covr,
     pkgdown,
     rmarkdown,
-    spelling
+    spelling,
+    learnr
 Encoding: UTF-8
 Language: en-US
 LazyData: true
