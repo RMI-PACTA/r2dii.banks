@@ -1,5 +1,5 @@
 ---
-title: "Get started with r2dii.data"
+title: "Introduction to r2dii.analysis"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 )
 
 lines <- r2dii.banks:::readme_from(
-  "maurolepore", "r2dii.data", branch = "label-chunks"
+  "maurolepore", "r2dii.analysis", branch = "label-chunks"
 )
-path <- tempfile("readme")
+path <- "readme-copy.Rmd"
 writeLines(lines, path)
 ```
 
