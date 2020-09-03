@@ -52,7 +52,7 @@ What would you like to do next?
   - [Raise an
     issue](https://2degreesinvesting.github.io/posts/2020-06-26-instructions-to-raise-an-issue/).
 
-Tutorials:
+## Tutorials
 
   - [Introduction to
     r2dii.data](https://2dii.shinyapps.io/intro-r2dii-data/)

@@ -52,7 +52,7 @@ What would you like to do next?
 * [Search features](https://2degreesinvesting.github.io/r2dii.banks/articles/reference.html).
 * [Raise an issue](https://2degreesinvesting.github.io/posts/2020-06-26-instructions-to-raise-an-issue/).
 
-Tutorials:
+## Tutorials
 
 * [Introduction to r2dii.data](https://2dii.shinyapps.io/intro-r2dii-data/)
 * [Introduction to r2dii.match](https://2dii.shinyapps.io/intro-r2dii-match/)
