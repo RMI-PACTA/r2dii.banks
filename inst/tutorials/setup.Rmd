@@ -13,7 +13,8 @@ knitr::opts_chunk$set(
   error = FALSE,
   # `collapse` won't work because it mixes code and output in the same console
   collapse = FALSE,
-  comment = "#>", 
+  # Better leave the default promt, as it's more natural to the console
+  # comment = "#>", 
   echo = FALSE
 )
 ```
