@@ -27,6 +27,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+## Description
+
+
+
 These tools help you to assess if a financial portfolio aligns with climate
 goals. They summarize key metrics attributed to the portfolio (e.g.
 production, emission factors), and calculate targets based on climate
@@ -61,7 +66,7 @@ devtools::install_github("2DegreesInvesting/r2dii.analysis")
 
 * Use `library()` to attach the packages you need. r2dii.analysis does not depend on the packages r2dii.data and r2dii.match; but we suggest you install them -- with `install.packages(c("r2dii.data", "r2dii.match"))` -- so you can reproduce our examples.
 
-```{r packages, exercise=TRUE}
+```{r packages, exercise=TRUE, exercise.eval=TRUE}
 library(r2dii.data)
 library(r2dii.match)
 library(r2dii.analysis)
@@ -69,7 +74,7 @@ library(r2dii.analysis)
 
 * Use `r2dii.match::match_name()` to identify matches between your loanbook and the asset level data.
 
-```{r match-prioritize, exercise=TRUE}
+```{r prioritize, exercise=TRUE, exercise.eval=TRUE, exercise.setup="packages"}
 matched <- match_name(loanbook_demo, ald_demo) %>%
   prioritize()
 ```
@@ -78,7 +83,7 @@ matched <- match_name(loanbook_demo, ald_demo) %>%
 
 * Use `target_sda()` to calculate SDA targets of CO2 emissions.
 
-```{r target-sda, exercise=TRUE}
+```{r sda, exercise=TRUE, exercise.eval=TRUE, exercise.setup="prioritize"}
 matched %>%
   target_sda(
     ald = ald_demo,
@@ -88,7 +93,7 @@ matched %>%
 
 * Use `target_market_share` to calculate market-share scenario targets at the portfolio level:
 
-```{r target-market-share, exercise=TRUE}
+```{r share, exercise=TRUE, exercise.eval=TRUE, exercise.setup="sda"}
 matched %>%
   target_market_share(
     ald = ald_demo,
@@ -99,7 +104,7 @@ matched %>%
 
 * Or at the company level:
 
-```{r target-market-share-by-company, exercise=TRUE}
+```{r company, exercise=TRUE, exercise.eval=TRUE, exercise.setup="share"}
 matched %>%
   target_market_share(
     ald = ald_demo,
@@ -116,7 +121,7 @@ The `target_*()` functions provide shortcuts for common operations. They wrap so
 * Use `join_ald_scenario()` to join a matched dataset to the relevant 
 scenario data, and to pick assets in the relevant regions. 
 
-```{r join-ald-scenario, exercise=TRUE}
+```{r join, exercise=TRUE, exercise.eval=TRUE, exercise.setup="company"}
 loanbook_joined_to_ald_scenario <- matched %>%
   join_ald_scenario(
     ald = ald_demo,
@@ -128,7 +133,7 @@ loanbook_joined_to_ald_scenario <- matched %>%
 * Use `summarize_weighted_production()` with different grouping arguments to 
 calculate scenario-targets:
 
-```{r summarize-weighted-production, exercise=TRUE}
+```{r production, exercise=TRUE, exercise.eval=TRUE, exercise.setup="join"}
 # portfolio level
 loanbook_joined_to_ald_scenario %>%
   summarize_weighted_production(scenario, tmsr, smsp, region)
@@ -139,4 +144,3 @@ loanbook_joined_to_ald_scenario %>%
 ```
 
 [Get started](https://2degreesinvesting.github.io/r2dii.analysis/articles/r2dii-analysis.html).
-
