@@ -14,15 +14,48 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-lines <- r2dii.banks:::readme_from(
-  "maurolepore", "r2dii.data", branch = "label-chunks"
-)
-path <- tempfile("readme")
-writeLines(lines, path)
 ```
 
 
-```{r reuse, child=path}
+These datasets support the implementation in R of
+the software PACTA (Paris Agreement Capital Transition Assessment),
+which is a free tool that calculates the alignment between financial
+assets and climate scenarios (<https://2degrees-investing.org/>).
+Financial institutions use PACTA to study how their capital
+allocation impacts the climate. Because both financial institutions
+and market data providers keep their data private, this package
+provides fake, public data to enable the development and use of
+PACTA in R.
 
+## Installation
+
+Before you install r2dii.analysis you may want to:
+
+* [Try an rstudio.cloud project with this package already installed](https://rstudio.cloud/project/1424833).
+* [Learn how to minimize installation errors](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation).
+
+When you are ready, install the released version of r2dii.data from CRAN with:
+
+```r
+install.packages("r2dii.data")
 ```
+
+Or install the development version of r2dii.data with something like this:
+
+```r
+# install.packages("devtools")
+devtools::install_github("2DegreesInvesting/r2dii.data")
+```
+
+[How to raise an issue?](https://2degreesinvesting.github.io/posts/2020-06-26-instructions-to-raise-an-issue/)
+
+## Example
+
+```{r example}
+library(r2dii.data)
+
+head(data_dictionary)
+```
+
+
+

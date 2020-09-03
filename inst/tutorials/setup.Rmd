@@ -1,0 +1,12 @@
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  exercise = TRUE,
+  exercise.eval = TRUE,
+  error = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
