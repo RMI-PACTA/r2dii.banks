@@ -9,7 +9,8 @@ tutorial_options(
 )
 
 knitr::opts_chunk$set(
-  error = TRUE,
+  # `error = TRUE` shows shiny errors that confuse the reader
+  error = FALSE,
   # `collapse` won't work because it mixes code and output in the same console
   collapse = FALSE,
   comment = "#>", 
