@@ -4,6 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
+    df_print: default
 runtime: shiny_prerendered
 ---
 
@@ -20,7 +21,8 @@ tutorial_options(
 
 knitr::opts_chunk$set(
   error = TRUE,
-  collapse = TRUE,
+  # `collapse` won't work because it mixes code and output in the same console
+  collapse = FALSE,
   comment = "#>", 
   echo = FALSE
 )
