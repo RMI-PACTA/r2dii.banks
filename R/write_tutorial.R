@@ -1,19 +1,21 @@
-write_tutorial <- function(suffix) {
-  replacement <- sprintf("\\1%s", suffix)
-  yaml <- sub("(r2dii.)package", replacement, readLines(rmd("yaml.Rmd")))
-  lines <- c(
-    yaml,
-    readLines(rmd("setup.Rmd")),
-    readme_from("maurolepore", sprintf("r2dii.%s", suffix), branch = "label-chunks")
-  )
+write_tutorial <- function(.x) {
+  suffix <- function(x, y) sprintf("%s%s", x, y)
 
-  path <- file.path(
-    sprintf("intro-r2dii-%s", suffix),
-    sprintf("intro-r2dii-%s.Rmd", suffix)
+  yaml <- sub("(r2dii.)package", suffix("\\1", .x), readLines(rmd("yaml.Rmd")))
+
+  readme <- readme_from(
+    "maurolepore", suffix("r2dii.", .x), branch = "label-chunks"
   )
+  readme <- sub("^(```\\{.*)\\}", "\\1, exercise=TRUE}", readme)
+
+  lines <- c(yaml, "\n", readLines(rmd("setup.Rmd")), readme)
+
+  directory <- suffix("intro-r2dii-", .x)
+  file <- sprintf("intro-r2dii-%s.Rmd", .x)
+  path <- file.path(directory, file)
   writeLines(lines, file.path("inst", "tutorials", path))
 
-  invisible(suffix)
+  invisible(.x)
 }
 
 rmd <- function(file) {

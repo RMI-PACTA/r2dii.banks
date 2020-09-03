@@ -1,21 +1,31 @@
 ---
 title: "Introduction to r2dii.data"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    df_print: default
 runtime: shiny_prerendered
 ---
 
+
 ```{r setup, include=FALSE}
 library(learnr)
+library(r2dii.banks)
+
+tutorial_options(
+  # exercise=TRUE can't be set globally -- it must be set in each chunk
+  exercise.timelimit = 60,
+  exercise.eval=TRUE
+)
+
 knitr::opts_chunk$set(
-  echo = FALSE,
-  exercise = TRUE,
-  exercise.eval = TRUE,
   error = TRUE,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  echo = FALSE
 )
 ```
-
 
 These datasets support the implementation in R of
 the software PACTA (Paris Agreement Capital Transition Assessment),
@@ -51,7 +61,7 @@ devtools::install_github("2DegreesInvesting/r2dii.data")
 
 ## Example
 
-```{r example}
+```{r example, exercise=TRUE}
 library(r2dii.data)
 
 head(data_dictionary)
