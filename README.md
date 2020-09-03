@@ -55,8 +55,8 @@ What would you like to do next?
 Tutorials:
 
   - [Introduction to
-    r2dii.data](https://mybinder.org/v2/gh/2degreesinvesting/r2dii.banks/tutorials?urlpath=shiny/inst/tutorials/intro-r2dii-data/)
+    r2dii.data](https://2dii.shinyapps.io/intro-r2dii-data/)
   - [Introduction to
-    r2dii.match](https://mybinder.org/v2/gh/2degreesinvesting/r2dii.banks/tutorials?urlpath=shiny/inst/tutorials/intro-r2dii-match/)
+    r2dii.match](https://2dii.shinyapps.io/intro-r2dii-match/)
   - [Introduction to
-    r2dii.analysis](https://mybinder.org/v2/gh/2degreesinvesting/r2dii.banks/tutorials?urlpath=shiny/inst/tutorials/intro-r2dii-data/)
+    r2dii.analysis](https://2dii.shinyapps.io/intro-r2dii-analysis/)
