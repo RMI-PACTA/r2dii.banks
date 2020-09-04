@@ -146,7 +146,7 @@ Notice the warning.
 
 ## Validate matches
 
-```{r unlabeled-130, exercise.setup='unlabeled-119'}
+```{r validate-matches, exercise.setup='unlabeled-119'}
 # Run and copy-pate to update this section
 # writeLines(readLines("./_validate-matches.md"))
 ```
@@ -180,7 +180,7 @@ valid_matches <- readr::read_csv("valid_matches.csv")
 
 The validated dataset may have multiple matches per loan. Consider the case where a loan is given to "Acme Power USA", a subsidiary of "Acme Power Co.". There may be both "Acme Power USA" and "Acme Power Co." in the `ald`, and so there could be two valid matches for this loan. To get the best match only, use `prioritize()` -- it picks rows where `score` is 1 and `level` per loan is of highest `priority()`:
 
-```{r unlabeled-164, exercise.setup='unlabeled-130'}
+```{r unlabeled-164, exercise.setup='validate-matches'}
 # Pretend we validated the matched dataset
 valid_matches <- matched
 

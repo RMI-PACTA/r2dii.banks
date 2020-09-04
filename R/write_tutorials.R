@@ -57,7 +57,6 @@ write_tutorials_from_get_started <- function() {
 #'
 #'
 #' # Get started
-#' package <- c("r2dii.analysis")
 #' package <- c("r2dii.match", "r2dii.analysis")
 #' raw <- sprintf(
 #'   "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
@@ -84,7 +83,6 @@ write_tutorials <- function(url, path, welcome) {
 
 #' @examples
 #' host <- "https://raw.githubusercontent.com/"
-#' url <- paste0(host, "maurolepore/r2dii.analysis/label-chunks/README.Rmd")
 #' url <- paste0(host, "maurolepore/r2dii.match/label-chunks/vignettes/r2dii-match.Rmd")
 #' path <- tempfile()
 #' write_tutorial(url, path)
@@ -110,7 +108,8 @@ get_yaml <- function(.x) {
 }
 
 parse_body <- function(url) {
-  out <- sanitize_chunks(readLines(url))
+  out <- readLines(url)
+  out <- sanitize_chunks(out)
   out <- strip_yaml(out)
   out <- strip_roxygen_note(out)
   out <- strip_setup(out)
@@ -126,14 +125,27 @@ sanitize_chunks <- function(lines) {
 }
 
 label_unlabeled <- function(lines) {
-  # Matches e.g. ```{r} and ```{r, echo= TRUE}
-  pattern <- "\\{[ ]*r[ ]*\\}|\\{[ ]*r[ ]*,.*\\}"
-  for (i in seq_along(lines)) {
-    replacement <- sprintf("{r unlabeled-%s}", i)
-    lines[i] <- sub(pattern, replacement, lines[i])
+  out <- lines
+
+  # out <- c("```{r a-b}", "```{r a-b, echo=TRUE}", "```{r }", "```{r}", "```{r, eval=FALSE}", "```{r eval=FALSE}")
+  # # e.g."```{r, eval=FALSE}" -> "```{r unlabeled-999, eval=FALSE}"
+  # pattern <- "\\{[ ]*r([ ]*,.*)\\}"
+  # out <- sub(pattern, "{r unlabeled-888\\1}", out)
+  # # e.g. "```{r }" -> "```{r unlabeled-999 }"
+  # pattern <- "\\{[ ]*r([ ]*)\\}"
+  # out <- sub(pattern, "{r unlabeled-888\\1}", out)
+  # out
+
+  for (i in seq_along(out)) {
+    replacement <- sprintf("{r unlabeled-%s\\1}", i)
+    pattern <- "\\{[ ]*r([ ]*,.*)\\}"
+    out[i] <- sub(pattern, replacement, out[i])
+
+    pattern <- "\\{[ ]*r([ ]*)\\}"
+    out[i] <- sub(pattern, replacement, out[i])
   }
 
-  lines
+  out
 }
 
 trim_whitespace <- function(lines) {
