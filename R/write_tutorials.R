@@ -127,24 +127,21 @@ sanitize_chunks <- function(lines) {
 label_unlabeled <- function(lines) {
   out <- lines
 
-  out <- c(
-    "```{r a-b}",
-    "```{r a-b, echo=TRUE}",
-    "```{r }",
-    "```{r}",
-    "```{r, eval=FALSE}",
-    "```{r eval=FALSE}",
-    "```{r validate-matches, eval=FALSE, include=FALSE}",
-    "whatever"
-  )
+  # out <- c(
+  #   "```{r a-b}",
+  #   "```{r a-b, echo=TRUE}",
+  #   "```{r }",
+  #   "```{r}",
+  #   "```{r, eval=FALSE}",
+  #   "```{r eval=FALSE}",
+  #   "```{r validate-matches, eval=FALSE, include=FALSE}",
+  #   "whatever"
+  # )
 
   for (i in seq_along(out)) {
     replacement <- sprintf("{r unlabeled-%s\\1}", i)
     pattern <- "\\{[ ]*r([ ]*,.*)\\}|\\{[ ]*r([ ]*)\\}"
     out[i] <- sub(pattern, replacement, out[i])
-#
-#     pattern <- "\\{[ ]*r([ ]*)\\}"
-#     out[i] <- sub(pattern, replacement, out[i])
   }
 
   out
