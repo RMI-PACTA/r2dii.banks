@@ -146,7 +146,7 @@ Notice the warning.
 
 ## Validate matches
 
-```{r validate-matches, eval=FALSE, include=FALSE, exercise.setup='unlabeled-119'}
+```{r validate-matches, eval=FALSE, exercise=FALSE, include=FALSE, exercise.setup='unlabeled-119'}
 # Run and copy-pate to update this section
 # writeLines(readLines("./_validate-matches.md"))
 ```

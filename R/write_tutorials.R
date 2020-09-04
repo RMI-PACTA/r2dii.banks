@@ -115,6 +115,10 @@ parse_body <- function(url) {
   out <- strip_setup(out)
   out <- strip_title(out)
   out <- strip_badges(out)
+
+
+  out <- set_exercise_false_if_eval_false(out)
+
   out
 }
 
@@ -150,6 +154,10 @@ label_unlabeled <- function(lines) {
 trim_whitespace <- function(lines) {
   trimed_inside <- sub("```[ ]+\\{", "```{", lines)
   trimws(trimed_inside)
+}
+
+set_exercise_false_if_eval_false <- function(lines) {
+  sub("eval[.]*=[.]*FALSE", "eval=FALSE, exercise=FALSE", lines)
 }
 
 get_setup <- function() {
