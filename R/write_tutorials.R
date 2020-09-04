@@ -58,6 +58,7 @@ write_tutorials_from_get_started <- function() {
 #'
 #' # Get started
 #' package <- c("r2dii.match", "r2dii.analysis")
+#' package <- c("r2dii.analysis")
 #' raw <- sprintf(
 #'   "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
 #' )
@@ -96,7 +97,7 @@ write_tutorial2 <- function(url, path, welcome = "Welcome") {
     "\n",
     paste("##", welcome),
     "\n",
-    get_body(url)
+    chain_exercise_setup(get_body(url))
   )
   writeLines(lines, path)
 

@@ -29,8 +29,7 @@ indices_excluding_setup <- function(lines) {
 }
 
 setup_range <- function(lines) {
-  start_pattern <- untrim("```\\{r.*\\}")
-  start_id <- grep(start_pattern, lines)
+  start_id <- chunk_start_id(lines)
 
   setup_pattern <-"opts_chunk\\$set\\("
   setup_id <- grep(setup_pattern, lines)
@@ -42,6 +41,11 @@ setup_range <- function(lines) {
     from = start_id[start_id < setup_id][[1]],
     to = end_id[end_id > setup_id][[1]]
   )
+}
+
+chunk_start_id <- function(lines) {
+  start_pattern <- untrim("```\\{r.*\\}")
+  grep(start_pattern, lines)
 }
 
 untrim <- function(x) {
