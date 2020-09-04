@@ -6,12 +6,8 @@ chain_exercise_setup <- function(lines) {
 
   for (i in seq_along(x)) {
     patt <- sprintf("(```\\{r.[^,]*%s[^,]*).*\\}", labels[[i]])
-
-    # patt <- sprintf("(```\\{r %s.*)(\\})", labels[[i]])
     repl <- sprintf("\\1, exercise.setup='%s'}", replacements[[i]])
-
     lines <- sub(patt, repl, lines)
-    # lines[grep(patt, lines)]
   }
 
   lines

@@ -57,8 +57,8 @@ write_tutorials_from_get_started <- function() {
 #'
 #'
 #' # Get started
-#' package <- c("r2dii.match", "r2dii.analysis")
 #' package <- c("r2dii.analysis")
+#' package <- c("r2dii.match", "r2dii.analysis")
 #' raw <- sprintf(
 #'   "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
 #' )
@@ -119,7 +119,25 @@ get_body <- function(url) {
 }
 
 sanitize_chunks <- function(lines) {
-  sub("```[ ]+\\{", "```{", lines)
+  out <- trim_whitespace(lines)
+  out <- label_unlabeled(out)
+
+  out
+}
+
+label_unlabeled <- function(lines) {
+  pattern <- "\\{([ ]*r[ ]*)\\}"
+  for (i in seq_along(lines)) {
+    replacement <- sprintf("{r unlabeled-%s}", i)
+    lines[i] <- sub(pattern, replacement, lines[i])
+  }
+
+  lines
+}
+
+trim_whitespace <- function(lines) {
+  trimed_inside <- sub("```[ ]+\\{", "```{", lines)
+  trimws(trimed_inside)
 }
 
 get_setup <- function() {
