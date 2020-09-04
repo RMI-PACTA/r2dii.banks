@@ -31,7 +31,7 @@ indices_excluding_setup <- function(lines) {
 setup_range <- function(lines) {
   start_id <- chunk_start_id(lines)
 
-  setup_pattern <-"opts_chunk\\$set\\("
+  setup_pattern <- "opts_chunk\\$set\\("
   setup_id <- grep(setup_pattern, lines)
 
   end_pattern <- untrim("```")
@@ -53,8 +53,12 @@ untrim <- function(x) {
 }
 
 remove_lines_range <- function(lines, from, to) {
-  if (!has_patteren(lines, from)) return(lines)
-  if (!has_patteren(lines, to)) return(lines)
+  if (!has_patteren(lines, from)) {
+    return(lines)
+  }
+  if (!has_patteren(lines, to)) {
+    return(lines)
+  }
 
   .from <- grep(from, lines)[[1]]
   to_candidates <- grep(to, lines)

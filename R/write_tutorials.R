@@ -159,10 +159,10 @@ tutorials_path <- function(path = NULL) {
   system.file(path, mustWork = TRUE, package = "r2dii.banks")
 }
 
-`%||%` <- function (x, y){
-    if (is_null(x)) {
-      y
-    } else {
-      x
-    }
+`%||%` <- function(x, y) {
+  if (is_null(x)) {
+    y
+  } else {
+    x
+  }
 }

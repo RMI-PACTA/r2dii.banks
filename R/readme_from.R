@@ -22,4 +22,3 @@ remove_readme_header <- function(readme_lines) {
   end <- length(readme_lines)
   readme_lines[start:end]
 }
-
