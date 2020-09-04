@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
   collapse = FALSE,
   # Better leave the default promt, as it's more natural to the console
   # comment = "#>", 
+  exercise = TRUE,
   echo = FALSE
 )
 ```
