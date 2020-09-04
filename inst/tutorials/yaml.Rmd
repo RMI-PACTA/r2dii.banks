@@ -1,5 +1,5 @@
 ---
-title: "Introduction to r2dii.package"
+title: "Turorial"
 output: 
   learnr::tutorial:
     progressive: true

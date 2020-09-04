@@ -31,10 +31,17 @@ untrim <- function(x) {
 }
 
 remove_lines_range <- function(lines, from, to) {
+  if (!has_patteren(lines, from)) return(lines)
+  if (!has_patteren(lines, to)) return(lines)
+
   .from <- grep(from, lines)[[1]]
   to_candidates <- grep(to, lines)
   .to <- to_candidates[to_candidates > .from][[1]]
 
   useful <- setdiff(seq_along(lines), .from:.to)
   lines[useful]
+}
+
+has_patteren <- function(lines, from) {
+  length(grep(from, lines)) > 0L
 }

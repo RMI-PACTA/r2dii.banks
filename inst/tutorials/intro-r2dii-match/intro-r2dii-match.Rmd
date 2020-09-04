@@ -1,5 +1,5 @@
 ---
-title: "Introduction to r2dii.match"
+title: "Turorial"
 output: 
   learnr::tutorial:
     progressive: true
@@ -34,6 +34,9 @@ knitr::opts_chunk$set(
 ## Description
 
 
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -48,6 +51,13 @@ knitr::opts_chunk$set(
 
 # r2dii.match <a href='https://github.com/2DegreesInvesting/r2dii.match'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
 
+<!-- badges: start -->
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/r2dii.match)](https://CRAN.R-project.org/package=r2dii.match)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/r2dii.match)](https://CRAN.R-project.org/package=r2dii.match)
+[![Codecov test coverage](https://codecov.io/gh/2degreesinvesting/r2dii.match/branch/master/graph/badge.svg)](https://codecov.io/gh/2degreesinvesting/r2dii.match?branch=master)
+[![R build status](https://github.com/2degreesinvesting/r2dii.match/workflows/R-CMD-check/badge.svg)](https://github.com/2degreesinvesting/r2dii.match/actions)
+<!-- badges: end -->
 
 These tools implement in R a fundamental part of
 the software PACTA (Paris Agreement Capital Transition Assessment),

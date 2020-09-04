@@ -3,30 +3,33 @@ write_tutorials2 <- function(.x = c("data", "match", "analysis")) {
 }
 
 #' @examples
-#' .x <- "data"
-#' write_tutorial2(.x)
+#' host <- "https://raw.githubusercontent.com/"
+#' url <- paste0(host, "maurolepore/r2dii.data/label-chunks/README.Rmd")
+#' path <- tempfile()
+#' write_tutorial2(url, path)
+#' cat(readLines(path), sep = "\n")
 #' @noRd
-write_tutorial2 <- function(.x) {
+write_tutorial2 <- function(url, path, welcome = "## Welcome") {
   lines <- c(
-    get_yaml(.x),
+    get_yaml(),
     "\n",
     get_setup(),
     "\n",
-    "## Description",
+    welcome,
     "\n",
-    get_readme(.x)
+    get_body(url)
   )
+  writeLines(lines, path)
 
-  directory <- suffix("intro-r2dii-", .x)
-  file <- sprintf("intro-r2dii-%s.Rmd", .x)
-  path <- file.path(directory, file)
-  writeLines(lines, file.path("inst", "tutorials", path))
-
-  invisible(.x)
+  invisible(url)
 }
 
 get_yaml <- function(.x) {
-  sub("(r2dii.)package", suffix("\\1", .x), readLines(rmd("yaml.Rmd")))
+  readLines(rmd("yaml.Rmd"))
+}
+
+get_body <- function(url) {
+  strip_setup(strip_badges(strip_yaml(readLines(url))))
 }
 
 get_setup <- function() {
