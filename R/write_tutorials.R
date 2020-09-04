@@ -1,21 +1,44 @@
 #' @examples
+#'
 #' host <- "https://raw.githubusercontent.com"
 #' package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
-#' url <- sprintf("%s/maurolepore/%s/label-chunks/README.Rmd", host, package)
+#'
+#' # README
+#' readme <- sprintf("%s/maurolepore/%s/label-chunks/README.Rmd", host, package)
+#' welcome <- sprintf("Introduction to %s", package)
 #'
 #' suffix <- paste0(package, "_readme")
 #' parent <- file.path(tutorials_path(), suffix)
 #' suppressWarnings(invisible(lapply(parent, dir.create)))
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
 #'
-#' write_tutorials(url, path)
+#' write_tutorials(readme, path, welcome)
+#'
+#'
+#'
+#' # Get started
+#' package <- c("r2dii.match", "r2dii.analysis")
+#' raw <- sprintf(
+#'   "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
+#' )
+#'
+#' url <- sprintf("%s/vignettes/%s.Rmd", raw, sub("\\.", "-", package))
+#'
+#' welcome <- sprintf("Get started with %s", package)
+#'
+#' suffix <- paste0(package, "_get-started")
+#' parent <- file.path(tutorials_path(), suffix)
+#' suppressWarnings(invisible(lapply(parent, dir.create)))
+#' path <- file.path(parent, paste0(suffix, ".Rmd"))
+#'
+#' write_tutorials(url, path, welcome)
 #'
 #' show <- 100L
 #' cat(head(readLines(path[[1]]), show), sep = "\n")
 #' @noRd
-write_tutorials <- function(url, path) {
+write_tutorials <- function(url, path, welcome) {
   for (i in seq_along(path)) {
-    write_tutorial2(url[[i]], path[[i]])
+    write_tutorial2(url[[i]], path[[i]], welcome[[i]])
   }
 
   invisible(url)
