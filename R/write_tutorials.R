@@ -109,13 +109,17 @@ get_yaml <- function(.x) {
 }
 
 get_body <- function(url) {
-  out <-readLines(url)
+  out <- sanitize_chunks(readLines(url))
   out <- strip_yaml(out)
   out <- strip_roxygen_note(out)
   out <- strip_setup(out)
   out <- strip_title(out)
   out <- strip_badges(out)
   out
+}
+
+sanitize_chunks <- function(lines) {
+  sub("```[ ]+\\{", "```{", lines)
 }
 
 get_setup <- function() {

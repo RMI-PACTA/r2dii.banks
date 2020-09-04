@@ -44,7 +44,7 @@ setup_range <- function(lines) {
 }
 
 chunk_start_id <- function(lines) {
-  start_pattern <- untrim("```\\{r.*\\}")
+  start_pattern <- "^[ ]*```[ ]*\\{r.*\\}"
   grep(start_pattern, lines)
 }
 

@@ -40,7 +40,7 @@ knitr::opts_chunk$set(
 
 The first step in your analysis will be to load in the recommended r2dii packages into your current R session. [r2dii.data](https://2degreesinvesting.github.io/r2dii.data) includes fake data to help demonstrate the tool and [r2dii.match](https://2degreesinvesting.github.io/r2dii.match) provides functions to help you easily match your loanbook to asset-level data.
 
-``` {r use-r2dii}
+```{r use-r2dii, exercise.setup=''}
 library(r2dii.data)
 library(r2dii.match)
 library(r2dii.analysis)
@@ -48,7 +48,7 @@ library(r2dii.analysis)
 
 We also recommend packages in the [tidyverse](https://www.tidyverse.org/); they are optional but useful.
 
-``` {r use-tidyverse}
+```{r use-tidyverse, exercise.setup='use-r2dii'}
 library(tidyverse)
 ```
 
@@ -56,7 +56,7 @@ library(tidyverse)
 
 See [r2dii.match](https://2degreesinvesting.github.io/r2dii.match) for a more complete description of this process. 
 
-```{r matched, exercise.setup=''}
+```{r matched, exercise.setup='use-tidyverse'}
 # Use these datasets to practice but eventually you should use your own data.
 # The optional syntax `package::data` is to clarify where the data comes from.
 loanbook <- r2dii.data::loanbook_demo

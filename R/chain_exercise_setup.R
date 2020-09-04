@@ -1,5 +1,6 @@
 chain_exercise_setup <- function(lines) {
   x <- lines[chunk_start_id(lines)]
+
   labels <- sub("```\\{r.([^,]*).*\\}", "\\1", x)
   replacements <- c("", labels[1:(length(labels) - 1)])
 
