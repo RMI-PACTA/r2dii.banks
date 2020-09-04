@@ -1,5 +1,43 @@
+write_tutorials_from_readme <- function() {
+  # README
+  package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
+  raw <- sprintf(
+    "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
+  )
+
+  url <- sprintf("%s/README.Rmd", raw)
+
+  welcome <- sprintf("First steps with %s", package)
+
+  suffix <- paste0(package, "_first-steps")
+  parent <- file.path(tutorials_path(), suffix)
+  suppressWarnings(invisible(lapply(parent, dir.create)))
+  path <- file.path(parent, paste0(suffix, ".Rmd"))
+
+  write_tutorials(url, path, welcome)
+}
+
+write_tutorials_from_get_started <- function() {
+  # Get started
+  package <- c("r2dii.match", "r2dii.analysis")
+  raw <- sprintf(
+    "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
+  )
+
+  url <- sprintf("%s/vignettes/%s.Rmd", raw, sub("\\.", "-", package))
+
+  welcome <- sprintf("Get started with %s", package)
+
+  suffix <- paste0(package, "_get-started")
+  parent <- file.path(tutorials_path(), suffix)
+  suppressWarnings(invisible(lapply(parent, dir.create)))
+  path <- file.path(parent, paste0(suffix, ".Rmd"))
+
+  write_tutorials(url, path, welcome)
+}
+
+
 #' @examples
-#'
 #' # README
 #' package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
 #' raw <- sprintf(
@@ -16,9 +54,6 @@
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
 #'
 #' write_tutorials(url, path, welcome)
-#'
-#' show <- 100L
-#' cat(head(readLines(path[[1]]), show), sep = "\n")
 #'
 #'
 #'
@@ -38,9 +73,6 @@
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
 #'
 #' write_tutorials(url, path, welcome)
-#'
-#' show <- 100L
-#' cat(head(readLines(path[[1]]), show), sep = "\n")
 #' @noRd
 write_tutorials <- function(url, path, welcome) {
   for (i in seq_along(path)) {
@@ -57,13 +89,13 @@ write_tutorials <- function(url, path, welcome) {
 #' write_tutorial2(url, path)
 #' cat(readLines(path), sep = "\n")
 #' @noRd
-write_tutorial2 <- function(url, path, welcome = "## Welcome") {
+write_tutorial2 <- function(url, path, welcome = "Welcome") {
   lines <- c(
     get_yaml(),
     "\n",
     get_setup(),
     "\n",
-    welcome,
+    paste("##", welcome),
     "\n",
     get_body(url)
   )
