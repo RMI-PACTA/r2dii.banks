@@ -9,7 +9,7 @@ write_tutorials_from_readme <- function() {
 
   welcome <- sprintf("First steps with %s", package)
 
-  suffix <- paste0(package, "_first-steps")
+  suffix <- paste0(package, "-first-steps")
   parent <- file.path(tutorials_path(), suffix)
   suppressWarnings(invisible(lapply(parent, dir.create)))
   path <- file.path(parent, paste0(suffix, ".Rmd"))
@@ -28,7 +28,7 @@ write_tutorials_from_get_started <- function() {
 
   welcome <- sprintf("Get started with %s", package)
 
-  suffix <- paste0(package, "_get-started")
+  suffix <- paste0(package, "-get-started")
   parent <- file.path(tutorials_path(), suffix)
   suppressWarnings(invisible(lapply(parent, dir.create)))
   path <- file.path(parent, paste0(suffix, ".Rmd"))
@@ -47,7 +47,7 @@ write_tutorials_from_get_started <- function() {
 #'
 #' welcome <- sprintf("First steps with %s", package)
 #'
-#' suffix <- paste0(package, "_first-steps")
+#' suffix <- paste0(package, "-first-steps")
 #' parent <- file.path(tutorials_path(), suffix)
 #' suppressWarnings(invisible(lapply(parent, dir.create)))
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
@@ -66,7 +66,7 @@ write_tutorials_from_get_started <- function() {
 #'
 #' welcome <- sprintf("Get started with %s", package)
 #'
-#' suffix <- paste0(package, "_get-started")
+#' suffix <- paste0(package, "-get-started")
 #' parent <- file.path(tutorials_path(), suffix)
 #' suppressWarnings(invisible(lapply(parent, dir.create)))
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
