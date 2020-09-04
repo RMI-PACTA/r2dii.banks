@@ -16,7 +16,7 @@ library(r2dii.banks)
 tutorial_options(
   # exercise=TRUE can't be set globally -- it must be set in each chunk
   exercise.timelimit = 60,
-  exercise.eval=TRUE
+  exercise.eval = TRUE
 )
 
 knitr::opts_chunk$set(error = FALSE, echo = FALSE, exercise = TRUE)
