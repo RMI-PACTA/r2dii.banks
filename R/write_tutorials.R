@@ -76,7 +76,7 @@ write_tutorials_from_get_started <- function() {
 #' @noRd
 write_tutorials <- function(url, path, welcome) {
   for (i in seq_along(path)) {
-    write_tutorial2(url[[i]], path[[i]], welcome[[i]])
+    write_tutorial(url[[i]], path[[i]], welcome[[i]])
   }
 
   invisible(url)
@@ -84,12 +84,12 @@ write_tutorials <- function(url, path, welcome) {
 
 #' @examples
 #' host <- "https://raw.githubusercontent.com/"
-#' url <- paste0(host, "maurolepore/r2dii.data/label-chunks/README.Rmd")
+#' url <- paste0(host, "maurolepore/r2dii.analysis/label-chunks/README.Rmd")
 #' path <- tempfile()
-#' write_tutorial2(url, path)
+#' write_tutorial(url, path)
 #' cat(readLines(path), sep = "\n")
 #' @noRd
-write_tutorial2 <- function(url, path, welcome = "Welcome") {
+write_tutorial <- function(url, path, welcome = "Welcome") {
   lines <- c(
     get_yaml(),
     "\n",
