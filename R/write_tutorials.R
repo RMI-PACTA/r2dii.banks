@@ -121,12 +121,12 @@ get_body <- function(url) {
 sanitize_chunks <- function(lines) {
   out <- trim_whitespace(lines)
   out <- label_unlabeled(out)
-
   out
 }
 
 label_unlabeled <- function(lines) {
-  pattern <- "\\{([ ]*r[ ]*)\\}"
+  # Matches e.g. ```{r} and ```{r, echo= TRUE}
+  pattern <- "\\{[ ]*r[ ]*\\}|\\{[ ]*r[ ]*,.*\\}"
   for (i in seq_along(lines)) {
     replacement <- sprintf("{r unlabeled-%s}", i)
     lines[i] <- sub(pattern, replacement, lines[i])
