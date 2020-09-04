@@ -1,7 +1,7 @@
 write_tutorials_from_readme <- function() {
   # README
   package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
-  pkg <- sub(".", "-", package)
+  pkg <- sub("\\.", "-", package)
 
   raw <- sprintf(
     "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
@@ -20,17 +20,17 @@ write_tutorials_from_readme <- function() {
 
 write_tutorials_from_get_started <- function() {
   # Get started
-  package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
-  pkg <- sub(".", "-", package)
+  package <- c("r2dii.match", "r2dii.analysis")
+  pkg <- sub("\\.", "-", package)
+
   raw <- sprintf(
     "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
   )
-
-  url <- sprintf("%s/vignettes/%s.Rmd", raw, sub("\\.", "-", package))
+  url <- sprintf("%s/vignettes/%s.Rmd", raw, pkg)
 
   welcome <- sprintf("Get started with %s", package)
 
-  suffix <- paste0(package, "-get-started")
+  suffix <- paste0(pkg, "-get-started")
   parent <- file.path(tutorials_path(), suffix)
   suppressWarnings(invisible(lapply(parent, dir.create)))
   path <- file.path(parent, paste0(suffix, ".Rmd"))
