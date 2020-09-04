@@ -1,18 +1,24 @@
 #' @examples
 #'
-#' host <- "https://raw.githubusercontent.com"
-#' package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
-#'
 #' # README
-#' readme <- sprintf("%s/maurolepore/%s/label-chunks/README.Rmd", host, package)
-#' welcome <- sprintf("Introduction to %s", package)
+#' package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
+#' raw <- sprintf(
+#'   "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
+#' )
 #'
-#' suffix <- paste0(package, "_readme")
+#' url <- sprintf("%s/README.Rmd", raw)
+#'
+#' welcome <- sprintf("First steps with %s", package)
+#'
+#' suffix <- paste0(package, "_first-steps")
 #' parent <- file.path(tutorials_path(), suffix)
 #' suppressWarnings(invisible(lapply(parent, dir.create)))
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
 #'
-#' write_tutorials(readme, path, welcome)
+#' write_tutorials(url, path, welcome)
+#'
+#' show <- 100L
+#' cat(head(readLines(path[[1]]), show), sep = "\n")
 #'
 #'
 #'
