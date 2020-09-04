@@ -1,10 +1,10 @@
 #' @examples
 #' host <- "https://raw.githubusercontent.com"
 #' package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
-#' url <- sprintf("%s/maurolepore/%s/label-chunks/README.Rmd", host, x)
+#' url <- sprintf("%s/maurolepore/%s/label-chunks/README.Rmd", host, package)
 #'
 #' suffix <- paste0(package, "_readme")
-#' parent <- file.path(tutorials_path(), base)
+#' parent <- file.path(tutorials_path(), suffix)
 #' suppressWarnings(invisible(lapply(parent, dir.create)))
 #' path <- file.path(parent, paste0(suffix, ".Rmd"))
 #'
@@ -67,7 +67,6 @@ tutorials_path <- function(path = NULL) {
 
   system.file(path, mustWork = TRUE, package = "r2dii.banks")
 }
-rmd <- tutorials_path
 
 `%||%` <- function (x, y){
     if (is_null(x)) {
