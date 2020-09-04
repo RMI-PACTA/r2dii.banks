@@ -1,17 +1,21 @@
-#' @example
-#' url <- "https://git.io/JU37u"
-#' out <- strip_tutorials_path(url)
-#' cat(head(out), sep = "\n")
-#'
-#' # Compare
-#' cat(head(readLines(url)), sep = "\n")
-#' @noRd
-strip_rmd <- function(url) {
-  strip_setup(strip_yaml(readLines(url)))
-}
-
 strip_yaml <- function(lines) {
   remove_lines_range(lines, untrim("---"), untrim("---"))
+}
+
+strip_badges <- function(lines) {
+  from <- untrim("<!-- badges: start -->")
+  to <- untrim("<!-- badges: end -->")
+  remove_lines_range(lines, from, to)
+}
+
+strip_roxygen_note <- function(lines) {
+  note <- untrim("<!-- README.md is generated.*-->")
+  sub(note, "", lines)
+}
+
+strip_title <- function(lines) {
+  title <- untrim(".*src='https://imgur.com/A5ASZPE.png.*")
+  sub(title, "", lines)
 }
 
 strip_setup <- function(lines) {
@@ -38,22 +42,6 @@ setup_range <- function(lines) {
     from = start_id[start_id < setup_id][[1]],
     to = end_id[end_id > setup_id][[1]]
   )
-}
-
-strip_badges <- function(lines) {
-  from <- untrim("<!-- badges: start -->")
-  to <- untrim("<!-- badges: end -->")
-  remove_lines_range(lines, from, to)
-}
-
-strip_roxygen_note <- function(lines) {
-  note <- untrim("<!-- README.md is generated.*-->")
-  sub(note, "", lines)
-}
-
-strip_title <- function(lines) {
-  title <- untrim(".*src='https://imgur.com/A5ASZPE.png.*")
-  sub(title, "", lines)
 }
 
 untrim <- function(x) {
