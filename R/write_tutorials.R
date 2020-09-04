@@ -3,7 +3,7 @@ write_tutorials <- function(.x = c("data", "match", "analysis")) {
 }
 
 write_tutorial <- function(.x) {
-  yaml <- sub("(r2dii.)package", suffix("\\1", .x), readLines(rmd("yaml.Rmd")))
+  yaml <- sub("(r2dii.)package", suffix("\\1", .x), readLines(tutorials_path("yaml.Rmd")))
   readme <- readme_from(
     "maurolepore", suffix("r2dii.", .x), branch = "label-chunks"
   )
@@ -11,7 +11,7 @@ write_tutorial <- function(.x) {
   lines <- c(
     yaml,
     "\n",
-    readLines(rmd("setup.Rmd")),
+    readLines(tutorials_path("setup.Rmd")),
     "\n",
     "## Description",
     "\n",

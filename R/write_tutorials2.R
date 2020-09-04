@@ -1,11 +1,16 @@
 #' @examples
 #' host <- "https://raw.githubusercontent.com"
-#' x <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
+#' package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
 #' url <- sprintf("%s/maurolepore/%s/label-chunks/README.Rmd", host, x)
-#' path <- tempfile(x)
-#' output <- write_tutorials2(url, path)
 #'
-#' show <- 20L
+#' suffix <- paste0(package, "_readme")
+#' parent <- file.path(tutorials_path(), base)
+#' suppressWarnings(invisible(lapply(parent, dir.create)))
+#' path <- file.path(parent, paste0(suffix, ".Rmd"))
+#'
+#' write_tutorials2(url, path)
+#'
+#' show <- 100L
 #' cat(head(readLines(path[[1]]), show), sep = "\n")
 #' @noRd
 write_tutorials2 <- function(url, path) {
@@ -39,29 +44,30 @@ write_tutorial2 <- function(url, path, welcome = "## Welcome") {
 }
 
 get_yaml <- function(.x) {
-  readLines(rmd("yaml.Rmd"))
+  readLines(tutorials_path("yaml.Rmd"))
 }
 
 get_body <- function(url) {
-  strip_setup(strip_badges(strip_yaml(readLines(url))))
+  out <-readLines(url)
+  out <- strip_yaml(out)
+  out <- strip_roxygen_note(out)
+  out <- strip_setup(out)
+  out <- strip_title(out)
+  out <- strip_badges(out)
+  out
 }
 
 get_setup <- function() {
-  readLines(rmd("setup.Rmd"))
+  readLines(tutorials_path("setup.Rmd"))
 }
 
-get_readme <- function(.x) {
-  readme <- readme_from(
-    "maurolepore", suffix("r2dii.", .x), branch = "label-chunks"
-  )
-  strip_badges(strip_yaml(readme))
-}
+tutorials_path <- function(path = NULL) {
+  parent <- "tutorials"
+  path <- ifelse(is.null(path), parent, file.path(parent, path))
 
-suffix <- function(x, y) sprintf("%s%s", x, y)
-
-rmd <- function(file) {
-  system.file("tutorials", file, mustWork = TRUE, package = "r2dii.banks")
+  system.file(path, mustWork = TRUE, package = "r2dii.banks")
 }
+rmd <- tutorials_path
 
 `%||%` <- function (x, y){
     if (is_null(x)) {

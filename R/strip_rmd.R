@@ -1,6 +1,6 @@
 #' @example
 #' url <- "https://git.io/JU37u"
-#' out <- strip_rmd(url)
+#' out <- strip_tutorials_path(url)
 #' cat(head(out), sep = "\n")
 #'
 #' # Compare
@@ -24,6 +24,16 @@ strip_badges <- function(lines) {
   from <- untrim("<!-- badges: start -->")
   to <- untrim("<!-- badges: end -->")
   remove_lines_range(lines, from, to)
+}
+
+strip_roxygen_note <- function(lines) {
+  note <- untrim("<!-- README.md is generated.*-->")
+  sub(note, "", lines)
+}
+
+strip_title <- function(lines) {
+  title <- untrim(".*src='https://imgur.com/A5ASZPE.png.*")
+  sub(title, "", lines)
 }
 
 untrim <- function(x) {
