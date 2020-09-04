@@ -20,6 +20,12 @@ strip_setup <- function(lines) {
   remove_lines_range(lines, from, to)
 }
 
+strip_badges <- function(lines) {
+  from <- untrim("<!-- badges: start -->")
+  to <- untrim("<!-- badges: end -->")
+  remove_lines_range(lines, from, to)
+}
+
 untrim <- function(x) {
   sprintf("^[ ]*%s[ ]*$", x)
 }
