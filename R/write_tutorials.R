@@ -85,9 +85,10 @@ write_tutorials <- function(url, path, welcome) {
 #' @examples
 #' host <- "https://raw.githubusercontent.com/"
 #' url <- paste0(host, "maurolepore/r2dii.analysis/label-chunks/README.Rmd")
+#' url <- paste0(host, "maurolepore/r2dii.match/label-chunks/vignettes/r2dii-match.Rmd")
 #' path <- tempfile()
 #' write_tutorial(url, path)
-#' cat(readLines(path), sep = "\n")
+#' writeLines(readLines(path))
 #' @noRd
 write_tutorial <- function(url, path, welcome = "Welcome") {
   lines <- c(
@@ -97,7 +98,7 @@ write_tutorial <- function(url, path, welcome = "Welcome") {
     "\n",
     paste("##", welcome),
     "\n",
-    chain_exercise_setup(get_body(url))
+    chain_exercise_setup(parse_body(url))
   )
   writeLines(lines, path)
 
@@ -108,7 +109,7 @@ get_yaml <- function(.x) {
   readLines(tutorials_path("yaml.Rmd"))
 }
 
-get_body <- function(url) {
+parse_body <- function(url) {
   out <- sanitize_chunks(readLines(url))
   out <- strip_yaml(out)
   out <- strip_roxygen_note(out)
