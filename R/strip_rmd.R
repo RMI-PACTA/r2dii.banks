@@ -15,20 +15,29 @@ strip_yaml <- function(lines) {
 }
 
 strip_setup <- function(lines) {
+  lines[indices_excluding_setup(lines)]
+}
+
+indices_excluding_setup <- function(lines) {
+  from <- setup_range(lines)$from
+  to <- setup_range(lines)$to
+  except_setup <- setdiff(seq_along(lines), from:to)
+}
+
+setup_range <- function(lines) {
   start_pattern <- untrim("```\\{r.*\\}")
   start_id <- grep(start_pattern, lines)
 
-  set_pattern <-"opts_chunk\\$set\\("
-  set_id <- grep(set_pattern, lines)
+  setup_pattern <-"opts_chunk\\$set\\("
+  setup_id <- grep(setup_pattern, lines)
 
   end_pattern <- untrim("```")
   end_id <- grep(end_pattern, lines)
 
-  from <- start_id[start_id < set_id][[1]]
-  to <- end_id[end_id > set_id][[1]]
-
-  useful <- setdiff(seq_along(lines), from:to)
-  lines[useful]
+  list(
+    from = start_id[start_id < setup_id][[1]],
+    to = end_id[end_id > setup_id][[1]]
+  )
 }
 
 strip_badges <- function(lines) {
