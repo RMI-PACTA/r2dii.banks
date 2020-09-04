@@ -146,15 +146,23 @@ Notice the warning.
 
 ## Validate matches
 
-```{r child="_validate-matches.md", exercise.setup='unlabeled-119'}
+```{r validate-matches-url, exercise.setup='unlabeled-119'}
+url <- paste0(
+"https://raw.githubusercontent.com/",
+"2DegreesInvesting/r2dii.match/master/",
+"vignettes/_validate-matches.md"
+)
 
+writeLines(readLines(url))
 ```
+
+
 
 ## Prioritize validated matches by level
 
 The validated dataset may have multiple matches per loan. Consider the case where a loan is given to "Acme Power USA", a subsidiary of "Acme Power Co.". There may be both "Acme Power USA" and "Acme Power Co." in the `ald`, and so there could be two valid matches for this loan. To get the best match only, use `prioritize()` -- it picks rows where `score` is 1 and `level` per loan is of highest `priority()`:
 
-```{r unlabeled-138, exercise.setup='child="_validate-matches.md"'}
+```{r unlabeled-146, exercise.setup='validate-matches-url'}
 # Pretend we validated the matched dataset
 valid_matches <- matched
 
@@ -167,13 +175,13 @@ select(!!!some_interesting_columns)
 
 By default, highest priority refers to the most granular match (`direct_loantaker`). The default priority is set internally via `prioritize_levels()`.
 
-```{r unlabeled-151, exercise.setup='unlabeled-138'}
+```{r unlabeled-159, exercise.setup='unlabeled-146'}
 prioritize_level(matched)
 ```
 
 You may use a different priority. One way to do that is to pass a function to `priority`. For example, use `rev` to reverse the default priority.
 
-```{r unlabeled-157, exercise.setup='unlabeled-151'}
+```{r unlabeled-165, exercise.setup='unlabeled-159'}
 matched %>%
 prioritize(priority = rev) %>%
 select(!!!some_interesting_columns)

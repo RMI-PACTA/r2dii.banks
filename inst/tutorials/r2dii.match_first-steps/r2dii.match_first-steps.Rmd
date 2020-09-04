@@ -68,7 +68,7 @@ devtools::install_github("2DegreesInvesting/r2dii.match")
 
 ## Example
 
-```{r packages, exercise.setup='setup'}
+```{r unlabeled-61, exercise.setup='setup'}
 library(r2dii.data)
 library(r2dii.match)
 ```
@@ -79,7 +79,7 @@ Matching is achieved in two main steps:
 
 `match_name()` will extract all unique counterparty names from the columns: `direct_loantaker`, `ultimate_parent` or `intermediate_parent*` and run fuzzy matching against all company names in the `ald`:
 
-```{r matched, exercise.setup='packages'}
+```{r unlabeled-72, exercise.setup='unlabeled-61'}
 match_result <- match_name(loanbook_demo, ald_demo)
 match_result
 ```
@@ -90,7 +90,7 @@ The user should then manually validate the output of [match_name()], ensuring th
 
 Once validated, the `prioritize()` function, will choose only the valid matches, prioritizing (by default) `direct_loantaker` matches over `ultimate_parent` matches:
 
-```{r prioritize, exercise.setup='matched'}
+```{r unlabeled-83, exercise.setup='unlabeled-72'}
 prioritize(match_result)
 ```
 
