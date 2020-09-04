@@ -21,7 +21,7 @@ write_tutorials_from_get_started <- function() {
   # Get started
   package <- c("r2dii.match", "r2dii.analysis")
   raw <- sprintf(
-    "https://raw.githubusercontent.com/maurolepore/%s/label-chunks", package
+    "https://raw.githubusercontent.com/2DegreesInvesting/%s/master", package
   )
 
   url <- sprintf("%s/vignettes/%s.Rmd", raw, sub("\\.", "-", package))
@@ -35,7 +35,6 @@ write_tutorials_from_get_started <- function() {
 
   write_tutorials(url, path, welcome)
 }
-
 
 #' @examples
 #' # README
