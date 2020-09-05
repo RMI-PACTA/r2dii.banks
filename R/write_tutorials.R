@@ -80,14 +80,15 @@ write_tutorials <- function(url, path, welcome) {
     write_tutorial(url[[i]], path[[i]], welcome[[i]])
   }
 
-  # styler::style_file(path)
+  styler::style_file(path)
 
   invisible(url)
 }
 
 #' @examples
 #' host <- "https://raw.githubusercontent.com/"
-#' url <- paste0(host, "maurolepore/r2dii.match/label-chunks/vignettes/r2dii-match.Rmd")
+#' url <- paste0(host, "maurolepore/r2dii.analysis/label-chunks/vignettes/r2dii-analysis.Rmd")
+#' welcome = "Welcome"
 #' path <- tempfile()
 #' write_tutorial(url, path)
 #' writeLines(xfun::read_utf8(path))
@@ -103,7 +104,7 @@ write_tutorial <- function(url, path, welcome = "Welcome") {
     chain_exercise_setup(parse_body(url))
   )
 
-  lines <- sub("(.)$", "\\1    ", lines)
+  lines <- sub("^$|\n", "\n\n", lines)
   xfun::write_utf8(lines, path)
 
   invisible(url)
