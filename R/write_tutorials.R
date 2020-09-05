@@ -94,13 +94,20 @@ write_tutorials <- function(url, path, welcome) {
 #' writeLines(xfun::read_utf8(path))
 #' @noRd
 write_tutorial <- function(url, path, welcome = "Welcome") {
+  # TODO: Extract as get_lines()
   lines <- c(
     get_yaml(),
     "\n",
     get_setup(),
     "\n",
+    # TODO: Extract as get_welcome()
     paste("##", welcome),
     "\n",
+    # TODO: Extract as get_body()
+    # FIXME:
+    # This "```{r, eval = FALSE}" became this:
+    # "```{r unlabeled-56, eval = FALSE, exercise.setup='setup'}" but should
+    # have added `exercise = FALSE`.
     chain_exercise_setup(parse_body(url))
   )
 
