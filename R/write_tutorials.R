@@ -90,7 +90,7 @@ write_tutorials <- function(url, path, welcome) {
 #' url <- paste0(host, "maurolepore/r2dii.match/label-chunks/vignettes/r2dii-match.Rmd")
 #' path <- tempfile()
 #' write_tutorial(url, path)
-#' xfun::write_utf8(xfun::read_utf8(path))
+#' writeLines(xfun::read_utf8(path))
 #' @noRd
 write_tutorial <- function(url, path, welcome = "Welcome") {
   lines <- c(
@@ -102,6 +102,8 @@ write_tutorial <- function(url, path, welcome = "Welcome") {
     "\n",
     chain_exercise_setup(parse_body(url))
   )
+
+  lines <- sub("(.)$", "\\1    ", lines)
   xfun::write_utf8(lines, path)
 
   invisible(url)
