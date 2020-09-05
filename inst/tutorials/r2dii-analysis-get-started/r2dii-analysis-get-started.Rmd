@@ -147,6 +147,9 @@ market_share_targets_company <- matched %>%
 
 
 
+
+
+
 market_share_targets_company
 ```
 
@@ -169,6 +172,9 @@ co2 <- r2dii.data::co2_intensity_scenario_demo
 sda_targets <- matched %>%
   target_sda(ald = ald, co2_intensity_scenario = co2) %>%
   filter(sector == "cement", year >= 2020)
+
+
+
 
 
 
@@ -246,6 +252,9 @@ market_share_targets_portfolio <- market_share_targets_portfolio %>%
 
 
 
+
+
+
 renewables_data <- filter(
   market_share_targets_portfolio,
   sector == "power",
@@ -255,8 +264,14 @@ renewables_data <- filter(
 
 
 
+
+
+
 just_targets <- renewables_data %>%
   filter(str_detect(metric, "target_"))
+
+
+
 
 
 
@@ -271,8 +286,14 @@ ceiling <- just_targets %>%
 
 
 
+
+
+
 just_data <- renewables_data %>%
   filter(!str_detect(metric, "target_"))
+
+
+
 
 
 
@@ -281,7 +302,7 @@ targets_and_ceiling <- just_targets %>%
   group_by(year) %>%
   arrange(year, production) %>%
   mutate(
-    previous_value = lag(production, default = 0),
+    previous_value = lag(production, default = 0)
   ) %>%
   filter(region == "global")
 ```
