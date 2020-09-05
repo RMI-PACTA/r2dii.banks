@@ -86,7 +86,7 @@ market_share_targets_portfolio
 
 Or at the company level:
 
-```{r market-share-targets-company, exercise.setup='market-share-targets-portfolio'}
+```{r share-company-define, exercise.setup='market-share-targets-portfolio'}
 market_share_targets_company <- matched %>%
   target_market_share(
     ald = ald,
@@ -95,24 +95,28 @@ market_share_targets_company <- matched %>%
     # Output results at company-level.
     by_company = TRUE
   )
+```
 
+```{r share-company-result, exercise.setup='share-company-define'}
 
 market_share_targets_company
 ```
+
 
 ### Sectoral Decarbonization Approach
 
 The [Sectoral Decarbonization Approach](https://2degreesinvesting.github.io/r2dii.analysis/articles/target-market-share.html) is used to calculate scenario targets for the `emission_factor` of a sector. For example, you can use this approach to set targets for the average emission factor of the cement sector. This approach is recommended for sectors lacking technology roadmaps.
 
-```{r sda-targets, exercise.setup='market-share-targets-company'}
+```{r sda-targets-define, exercise.setup='share-company-result'}
 # Use this dataset to practice but eventually you should use your own data.
 co2 <- r2dii.data::co2_intensity_scenario_demo
 
 sda_targets <- matched %>%
   target_sda(ald = ald, co2_intensity_scenario = co2) %>%
   filter(sector == "cement", year >= 2020)
+```
 
-
+```{r sda-targets-result, exercise.setup='sda-targets-define'}
 sda_targets
 ```
 
@@ -124,7 +128,7 @@ There are a large variety of possible visualizations stemming from the outputs o
 
 From the market share output, you can plot the portfolio's exposure to various climate sensitive technologies (`projected`), and compare with the corporate economy, or against various scenario targets.
 
-```{r technoloy-mix-portfolio, exercise.setup='sda-targets'}
+```{r technoloy-mix-portfolio, exercise.setup='sda-targets-result'}
 # Pick the targets you want to plot.
 tech_mix_data <- market_share_targets_portfolio %>%
   filter(
@@ -150,7 +154,7 @@ ggplot(
 
 You can also plot the technology-specific volume trend. All benchmarks must first be normalized to the initial portfolio value, so that we are effectively comparing ambition.
 
-```{r targets-and-ceiling, exercise.setup='plot-metric-versus-weighted-capacity'}
+```{r targets-and-ceiling-1, exercise.setup='plot-metric-versus-weighted-capacity', exercise.setup='just-targets', exercise.setup='just-data'}
 market_share_targets_portfolio <- market_share_targets_portfolio %>%
   select(-technology_share) %>%
   pivot_wider(
@@ -166,20 +170,26 @@ market_share_targets_portfolio <- market_share_targets_portfolio %>%
     cols = projected:normalized_corporate_economy,
     values_to = "production"
   )
+```
 
 
+```{r renewables-data, exercise.setup='targets-and-ceiling-1'}
 renewables_data <- filter(
   market_share_targets_portfolio,
   sector == "power",
   technology == "renewablescap",
   region == "global"
 )
+```
 
 
+```{r just-targets, exercise.setup='renewables-data'}
 just_targets <- renewables_data %>%
   filter(str_detect(metric, "target_"))
+```
 
 
+```{r ceiling, exercise.setup='just-targets'}
 ceiling <- just_targets %>%
   group_by(sector, technology, year, region, scenario_source) %>%
   summarize(
@@ -188,12 +198,14 @@ ceiling <- just_targets %>%
   ) %>%
   group_by(sector, technology, region, scenario_source) %>%
   mutate(production = max(production))
+```
 
-
+```{r just-data, exercise.setup='ceiling'}
 just_data <- renewables_data %>%
   filter(!str_detect(metric, "target_"))
+```
 
-
+```{r targets-and-ceiling, exercise.setup='just-targets', exercise.setup='just-data'}
 targets_and_ceiling <- just_targets %>%
   bind_rows(ceiling) %>%
   group_by(year) %>%
