@@ -104,7 +104,6 @@ write_tutorial <- function(url, path, welcome = "Welcome") {
     chain_exercise_setup(parse_body(url))
   )
 
-  lines <- sub("^$|\n", "\n\n", lines)
   xfun::write_utf8(lines, path)
 
   invisible(url)
