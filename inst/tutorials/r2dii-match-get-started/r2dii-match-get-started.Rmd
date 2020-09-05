@@ -17,6 +17,8 @@ tutorial_options(
   exercise.eval = TRUE
 )
 
+# Any chunk should output noting or only one thing at the end. Otput mid-chunk
+# interferes with the code unter it
 knitr::opts_chunk$set(
   echo = FALSE,
   # Can't be set in tutorial_options()
@@ -40,12 +42,17 @@ The package r2dii.match helps you to match counterparties from a loanbook to com
 
 ## Setup
 
-We use the package r2dii.match to access the most important functions you'll learn about. We also use example datasets from the package r2dii.data, and optional but convenient functions from the packages dplyr and readr.
+We use the package r2dii.match to access the most important functions you'll learn about. We also use example datasets from the package r2dii.data.
 
-```{r unlabeled-18, exercise.setup='setup'}
-library(dplyr, warn.conflicts = FALSE)
+```{r unlabeled-20, exercise.setup='setup'}
 library(r2dii.data)
 library(r2dii.match)
+```
+
+We also recommend packages in the [tidyverse](https://www.tidyverse.org/); they are optional but useful.
+
+```{r unlabeled-27, exercise.setup='unlabeled-20'}
+library(tidyverse)
 ```
 
 ## Format input data loanbook and asset-level data (ald)
@@ -53,14 +60,14 @@ library(r2dii.match)
 We need two datasets: a "loanbook" and an "asset-level dataset" (ald). These should be formatted like:  [`loanbook_demo`](https://2degreesinvesting.github.io/r2dii.data/reference/loanbook_demo.html) and [`ald_demo`](https://2degreesinvesting.github.io/r2dii.data/reference/ald_demo.html) (from the [r2dii.data package](https://2degreesinvesting.github.io/r2dii.data)).
 
 A note on sector classification: Matches are preferred when the sector from the `loanbook` matches the sector from the `ald`. The `loanbook` sector is determined internally using the `sector_classification_system` and `sector_classification_direct_loantaker` columns. Currently, we only allow a couple specific values for `sector_classification_system`:
-```{r unlabeled-29, exercise.setup='unlabeled-18'}
+```{r unlabeled-36, exercise.setup='unlabeled-27'}
 sector_classifications$code_system %>%
   unique()
 ```
 
 If you would like to use a different classification system, please raise an issue in [r2dii.data](https://github.com/2DegreesInvesting/r2dii.data) and we can incorporate it.
 
-```{r unlabeled-36, exercise.setup='unlabeled-29'}
+```{r unlabeled-43, exercise.setup='unlabeled-36'}
 loanbook_demo
 
 ald_demo
@@ -91,7 +98,7 @@ your_ald <- readr::read_csv("your_ald.csv")
 
 Here we continue to use the `*_demo` datasets, pretending they contain the data of your own.
 
-```{r unlabeled-67, exercise.setup='unlabeled-36'}
+```{r unlabeled-74, exercise.setup='unlabeled-43'}
 # WARNING: Skip this to avoid overwriting your data with our demo data
 your_loanbook <- loanbook_demo
 your_ald <- ald_demo
@@ -111,13 +118,13 @@ The raw names are internally transformed applying best-practices commonly used i
 
 The similarity is then scored between the internally-transformed names of the loanbook against the ald. (For more information on the scoring algorithm used, see: `stringdist::stringsim()`).
 
-```{r unlabeled-87, exercise.setup='unlabeled-67'}
+```{r unlabeled-94, exercise.setup='unlabeled-74'}
 match_name(your_loanbook, your_ald)
 ```
 
 `match_name()` defaults to scoring matches between name strings that belong to the same sector. Using `by_sector = FALSE` removes this limitation -- increasing computation time, and the number of potentially incorrect matches to manually validate.
 
-```{r unlabeled-93, exercise.setup='unlabeled-87'}
+```{r unlabeled-100, exercise.setup='unlabeled-94'}
 match_name(your_loanbook, your_ald, by_sector = FALSE) %>%
   nrow()
 
@@ -128,7 +135,7 @@ match_name(your_loanbook, your_ald, by_sector = TRUE) %>%
 
 `min_score` allows you to minimum threshold `score`.
 
-```{r unlabeled-104, exercise.setup='unlabeled-93'}
+```{r unlabeled-111, exercise.setup='unlabeled-100'}
 matched <- match_name(your_loanbook, your_ald, min_score = 0.9)
 range(matched$score)
 ```
@@ -143,7 +150,7 @@ If you are happy with the matching coverage achieved, proceed to the next step. 
 * `sector` optionally you can also overwrite the sector.
 * `source` this can be used later to determine where all manual matches came from.
 
-```{r unlabeled-119, exercise.setup='unlabeled-104'}
+```{r unlabeled-126, exercise.setup='unlabeled-111'}
 matched <- match_name(
   your_loanbook, your_ald,
   min_score = 0.9, overwrite = overwrite_demo
@@ -154,7 +161,7 @@ Notice the warning.
 
 ## Validate matches
 
-```{r validate-matches, eval=FALSE, exercise=FALSE, include=FALSE, exercise.setup='unlabeled-119'}
+```{r validate-matches, eval=FALSE, exercise=FALSE, include=FALSE, exercise.setup='unlabeled-126'}
 # Run and copy-pate to update this section
 # writeLines(readLines("./_validate-matches.md"))
 ```
@@ -187,7 +194,7 @@ valid_matches <- readr::read_csv("valid_matches.csv")
 
 The validated dataset may have multiple matches per loan. Consider the case where a loan is given to "Acme Power USA", a subsidiary of "Acme Power Co.". There may be both "Acme Power USA" and "Acme Power Co." in the `ald`, and so there could be two valid matches for this loan. To get the best match only, use `prioritize()` -- it picks rows where `score` is 1 and `level` per loan is of highest `priority()`:
 
-```{r unlabeled-163, exercise.setup='validate-matches'}
+```{r unlabeled-170, exercise.setup='validate-matches'}
 # Pretend we validated the matched dataset
 valid_matches <- matched
 
@@ -200,13 +207,13 @@ valid_matches %>%
 
 By default, highest priority refers to the most granular match (`direct_loantaker`). The default priority is set internally via `prioritize_levels()`.
 
-```{r unlabeled-176, exercise.setup='unlabeled-163'}
+```{r unlabeled-183, exercise.setup='unlabeled-170'}
 prioritize_level(matched)
 ```
 
 You may use a different priority. One way to do that is to pass a function to `priority`. For example, use `rev` to reverse the default priority.
 
-```{r unlabeled-182, exercise.setup='setup', exercise.setup='unlabeled-176'}
+```{r unlabeled-189, exercise.setup='unlabeled-183'}
 matched %>%
   prioritize(priority = rev) %>%
   select(!!!some_interesting_columns)

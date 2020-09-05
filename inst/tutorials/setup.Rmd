@@ -6,6 +6,8 @@ tutorial_options(
   exercise.eval = TRUE
 )
 
+# Any chunk should output noting or only one thing at the end. Otput mid-chunk
+# interferes with the code unter it
 knitr::opts_chunk$set(
   echo = FALSE,
   # Can't be set in tutorial_options()
@@ -17,5 +19,4 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE
 )
-
 ```
