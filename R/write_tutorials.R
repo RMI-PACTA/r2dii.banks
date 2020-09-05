@@ -1,3 +1,8 @@
+# TODO: Heper for `rmarkdown::run(file = "path/tutorial.Rmd")`
+# Helper to get common articles with url_readme("owner/repo@branch")
+# Helper to get common articles with url_get_started("owner/repo@branch")
+# Helper to get common articles with url_article("owner/repo@branch", "article")
+
 write_tutorials_from_readme <- function() {
   # README
   package <- c("r2dii.data", "r2dii.match", "r2dii.analysis")
