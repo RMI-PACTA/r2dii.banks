@@ -53,11 +53,9 @@ sector_classifications$code_system %>%
 If you would like to use a different classification system, please raise an issue in [r2dii.data](https://github.com/2DegreesInvesting/r2dii.data) and we can incorporate it.
 
 ```{r unlabeled-36, exercise.setup='unlabeled-29'}
-
 loanbook_demo
 
 ald_demo
-
 ```
 
 If you want to use `loanbook_demo` and `ald_demo` as template to create your own datasets, do this:

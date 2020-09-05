@@ -7,7 +7,7 @@ remove_lines <- function(lines, pattern) {
 
 readme_from <- function(owner, repo, branch = "master") {
   url <- readme_url(owner = owner, repo = repo, branch = branch)
-  readLines(url)
+  xfun::read_utf8(url)
 }
 
 readme_url <- function(owner, repo, branch = "master") {
