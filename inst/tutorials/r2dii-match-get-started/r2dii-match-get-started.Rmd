@@ -11,19 +11,18 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(r2dii.banks)
 
 tutorial_options(
   exercise.timelimit = 60,
   exercise.eval = TRUE
 )
 
-# Problematic arguments: collapse, error, message, warning, comment
 knitr::opts_chunk$set(
   echo = FALSE,
   # Can't be set in tutorial_options()
   exercise = TRUE,
-  # Problematic arguments: Cause odd code wrapping errors
+  # Problematic arguments: If not set this way, output breaks code
+  results = "hold",
   collapse = FALSE,
   error = FALSE,
   warning = FALSE,
