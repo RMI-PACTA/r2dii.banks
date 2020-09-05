@@ -107,7 +107,7 @@ write_tutorial <- function(url, path, welcome = "Welcome") {
     # FIXME:
     # This "```{r, eval = FALSE}" became this:
     # "```{r unlabeled-56, eval = FALSE, exercise.setup='setup'}" but should
-    # have added `exercise = FALSE`.
+    # have added `exercise = FALSE` and `exercise.eval=FALSE`
     chain_exercise_setup(parse_body(url))
   )
 
