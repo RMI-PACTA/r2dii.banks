@@ -80,7 +80,7 @@ write_tutorials <- function(url, path, welcome) {
     write_tutorial(url[[i]], path[[i]], welcome[[i]])
   }
 
-  styler::style_file(path)
+  # styler::style_file(path)
 
   invisible(url)
 }
