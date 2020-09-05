@@ -43,7 +43,7 @@ The package r2dii.match helps you to match counterparties from a loanbook to com
 
 We use the package r2dii.match to access the most important functions you'll learn about. We also use example datasets from the package r2dii.data, and optional but convenient functions from the packages dplyr and readr.
 
-```{r packages, exercise.setup='setup'}
+```{r unlabeled-18, exercise.setup='setup'}
 library(dplyr, warn.conflicts = FALSE)
 library(r2dii.data)
 library(r2dii.match)
@@ -54,23 +54,17 @@ library(r2dii.match)
 We need two datasets: a "loanbook" and an "asset-level dataset" (ald). These should be formatted like:  [`loanbook_demo`](https://2degreesinvesting.github.io/r2dii.data/reference/loanbook_demo.html) and [`ald_demo`](https://2degreesinvesting.github.io/r2dii.data/reference/ald_demo.html) (from the [r2dii.data package](https://2degreesinvesting.github.io/r2dii.data)).
 
 A note on sector classification: Matches are preferred when the sector from the `loanbook` matches the sector from the `ald`. The `loanbook` sector is determined internally using the `sector_classification_system` and `sector_classification_direct_loantaker` columns. Currently, we only allow a couple specific values for `sector_classification_system`:
-```{r code-system, exercise.setup='packages'}
+```{r unlabeled-29, exercise.setup='unlabeled-18'}
 sector_classifications$code_system %>%
   unique()
 ```
 
 If you would like to use a different classification system, please raise an issue in [r2dii.data](https://github.com/2DegreesInvesting/r2dii.data) and we can incorporate it.
 
-```{r loanbook, exercise.setup='code-system'}
+```{r unlabeled-36, exercise.setup='unlabeled-29'}
 loanbook_demo
 
-
-```
-
-```{r ald, exercise.setup='loanbook'}
 ald_demo
-
-
 ```
 
 If you want to use `loanbook_demo` and `ald_demo` as template to create your own datasets, do this:
@@ -98,10 +92,9 @@ your_ald <- readr::read_csv("your_ald.csv")
 
 Here we continue to use the `*_demo` datasets, pretending they contain the data of your own.
 
-```{r define-your-data, exercise.setup='ald'}
+```{r unlabeled-67, exercise.setup='unlabeled-36'}
 # WARNING: Skip this to avoid overwriting your data with our demo data
 your_loanbook <- loanbook_demo
-
 your_ald <- ald_demo
 ```
 
@@ -119,35 +112,26 @@ The raw names are internally transformed applying best-practices commonly used i
 
 The similarity is then scored between the internally-transformed names of the loanbook against the ald. (For more information on the scoring algorithm used, see: `stringdist::stringsim()`).
 
-```{r show-match-name, exercise.setup='define-your-data'}
+```{r unlabeled-87, exercise.setup='unlabeled-67'}
 match_name(your_loanbook, your_ald)
-
-
 ```
 
 `match_name()` defaults to scoring matches between name strings that belong to the same sector. Using `by_sector = FALSE` removes this limitation -- increasing computation time, and the number of potentially incorrect matches to manually validate.
 
-```{r by-sector-false, exercise.setup='show-match-name'}
+```{r unlabeled-93, exercise.setup='unlabeled-87'}
 match_name(your_loanbook, your_ald, by_sector = FALSE) %>%
   nrow()
-```
 
-```{r by-sector-true, exercise.setup='by-sector-false'}
 # Compare
 match_name(your_loanbook, your_ald, by_sector = TRUE) %>%
   nrow()
 ```
 
-
 `min_score` allows you to minimum threshold `score`.
 
-```{r matched, exercise.setup='by-sector-true'}
+```{r unlabeled-104, exercise.setup='unlabeled-93'}
 matched <- match_name(your_loanbook, your_ald, min_score = 0.9)
-
-
 range(matched$score)
-
-
 ```
 
 ### Maybe overwrite matches
@@ -160,7 +144,7 @@ If you are happy with the matching coverage achieved, proceed to the next step. 
 * `sector` optionally you can also overwrite the sector.
 * `source` this can be used later to determine where all manual matches came from.
 
-```{r overwrite, exercise.setup='matched'}
+```{r unlabeled-119, exercise.setup='unlabeled-104'}
 matched <- match_name(
   your_loanbook, your_ald,
   min_score = 0.9, overwrite = overwrite_demo
@@ -171,7 +155,7 @@ Notice the warning.
 
 ## Validate matches
 
-```{r validate-matches, eval=FALSE, exercise=FALSE, include=FALSE, exercise.setup='overwrite', exercise.setup='validate-matches'}
+```{r validate-matches, eval=FALSE, exercise=FALSE, include=FALSE, exercise.setup='unlabeled-119'}
 # Run and copy-pate to update this section
 # writeLines(readLines("./_validate-matches.md"))
 ```
@@ -200,12 +184,11 @@ Re-read the edited file (validated) with:
 valid_matches <- readr::read_csv("valid_matches.csv")
 ```
 
-
 ## Prioritize validated matches by level
 
 The validated dataset may have multiple matches per loan. Consider the case where a loan is given to "Acme Power USA", a subsidiary of "Acme Power Co.". There may be both "Acme Power USA" and "Acme Power Co." in the `ald`, and so there could be two valid matches for this loan. To get the best match only, use `prioritize()` -- it picks rows where `score` is 1 and `level` per loan is of highest `priority()`:
 
-```{r validate, exercise.setup='validate-matches'}
+```{r unlabeled-163, exercise.setup='validate-matches'}
 # Pretend we validated the matched dataset
 valid_matches <- matched
 
@@ -218,15 +201,13 @@ valid_matches %>%
 
 By default, highest priority refers to the most granular match (`direct_loantaker`). The default priority is set internally via `prioritize_levels()`.
 
-```{r priority, exercise.setup='validate'}
+```{r unlabeled-176, exercise.setup='unlabeled-163'}
 prioritize_level(matched)
-
-
 ```
 
 You may use a different priority. One way to do that is to pass a function to `priority`. For example, use `rev` to reverse the default priority.
 
-```{r select-interesting-columns, exercise.setup='priority'}
+```{r unlabeled-182, exercise.setup='setup', exercise.setup='unlabeled-176'}
 matched %>%
   prioritize(priority = rev) %>%
   select(!!!some_interesting_columns)
