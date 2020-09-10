@@ -31,7 +31,9 @@ URL: https://github.com/2DegreesInvesting/r2dii.banks,
     https://2degreesinvesting.github.io/r2dii.banks/
 BugReports: 
     https://github.com/2DegreesInvesting/r2dii.banks/issues
+Depends:
 Depends: 
+    R (>= 3.4),
     r2dii.analysis,
     r2dii.data,
     r2dii.match
