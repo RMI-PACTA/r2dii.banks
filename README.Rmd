@@ -51,7 +51,7 @@ What would you like to do next?
 * [Search features](https://2degreesinvesting.github.io/r2dii.banks/articles/reference.html).
 * [Raise an issue](https://2degreesinvesting.github.io/posts/2020-06-26-instructions-to-raise-an-issue/).
 
-```{r}
+```{r echo=FALSE}
 download.file("http://bit.ly/banks-thanks", thanks <- tempfile())
 ```
 

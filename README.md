@@ -50,12 +50,6 @@ What would you like to do next?
   - [Raise an
     issue](https://2degreesinvesting.github.io/posts/2020-06-26-instructions-to-raise-an-issue/).
 
-<!-- end list -->
-
-``` r
-download.file("http://bit.ly/banks-thanks", thanks <- tempfile())
-```
-
 ## Acknowledgements
 
 This project has received funding from the [European Union LIFE
