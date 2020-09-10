@@ -1,0 +1,101 @@
+---
+title: "Introduction to r2dii.match"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    df_print: default
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+library(r2dii.banks)
+
+tutorial_options(
+  # exercise=TRUE can't be set globally -- it must be set in each chunk
+  exercise.timelimit = 60,
+  exercise.eval=TRUE
+)
+
+knitr::opts_chunk$set(
+  # `error = TRUE` shows shiny errors that confuse the reader
+  error = FALSE,
+  # `collapse` won't work because it mixes code and output in the same console
+  collapse = FALSE,
+  # Better leave the default promt, as it's more natural to the console
+  # comment = "#>", 
+  echo = FALSE
+)
+```
+
+
+## Description
+
+
+
+These tools implement in R a fundamental part of
+the software PACTA (Paris Agreement Capital Transition Assessment),
+which is a free tool that calculates the alignment between financial
+portfolios and climate scenarios (<https://2degrees-investing.org/>).
+Financial institutions use PACTA to study how their capital
+allocation impacts the climate. This package matches data from
+financial portfolios to asset level data from market-intelligence
+databases (e.g. power plant capacities, emission factors, etc.). This
+is the first step to assess if a financial portfolio aligns with
+climate goals.
+
+## Installation
+
+Before you install r2dii.match you may want to:
+
+* [Try an rstudio.cloud project with this package already installed](https://rstudio.cloud/project/1424833).
+* [Learn how to minimize installation errors](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation).
+
+When you are ready, install the released version of r2dii.match from CRAN with:
+
+```r
+# install.packages("r2dii.match")
+```
+
+Or install the development version of r2dii.match from GitHub with:
+
+```r
+# install.packages("devtools")
+devtools::install_github("2DegreesInvesting/r2dii.match")
+```
+
+[How to raise an issue?](https://2degreesinvesting.github.io/posts/2020-06-26-instructions-to-raise-an-issue/)
+
+## Example
+
+```{r packages, exercise=TRUE, exercise.eval=TRUE}
+library(r2dii.data)
+library(r2dii.match)
+```
+
+Matching is achieved in two main steps:
+
+### 1. Run fuzzy matching
+
+`match_name()` will extract all unique counterparty names from the columns: `direct_loantaker`, `ultimate_parent` or `intermediate_parent*` and run fuzzy matching against all company names in the `ald`:
+
+```{r matched, exercise=TRUE, exercise.eval=TRUE, exercise.setup="packages"}
+match_result <- match_name(loanbook_demo, ald_demo)
+match_result 
+```
+
+### 2. Prioritize validated matches
+
+The user should then manually validate the output of [match_name()], ensuring that the value of the column `score` is equal to `1` for perfect matches only.
+
+Once validated, the `prioritize()` function, will choose only the valid matches, prioritizing (by default) `direct_loantaker` matches over `ultimate_parent` matches: 
+
+```{r prioritize, exercise=TRUE, exercise.eval=TRUE, exercise.setup="matched"}
+prioritize(match_result)
+```
+
+The result is a dataset with identical columns to the input loanbook, and added columns bridging all matched loans to their ald counterpart.
+
+[Get started](https://2degreesinvesting.github.io/r2dii.match/articles/r2dii-match.html).

@@ -12,3 +12,8 @@
 ^\.binder$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^inst/tutorials/intro-r2dii-data/intro-r2dii-data\.Rmd$
+^inst/tutorials/intro-r2dii-match/intro-r2dii-match\.Rmd$
+^inst/tutorials/intro-r2dii-analysis/intro-r2dii-analysis\.Rmd$
+^install\.R$
+^runtime\.txt$

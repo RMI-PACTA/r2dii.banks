@@ -1,0 +1,9 @@
+---
+title: "Turorial"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    df_print: default
+runtime: shiny_prerendered
+---

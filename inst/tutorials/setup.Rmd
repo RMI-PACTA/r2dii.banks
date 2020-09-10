@@ -1,0 +1,22 @@
+```{r setup, include=FALSE}
+library(learnr)
+
+tutorial_options(
+  exercise.timelimit = 60,
+  exercise.eval = TRUE
+)
+
+# Any chunk should output noting or only one thing at the end. Otput mid-chunk
+# interferes with the code unter it
+knitr::opts_chunk$set(
+  echo = FALSE,
+  # Can't be set in tutorial_options()
+  exercise = TRUE,
+  # Problematic arguments: If not set this way, output breaks code
+  results = "hold",
+  collapse = FALSE,
+  error = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
