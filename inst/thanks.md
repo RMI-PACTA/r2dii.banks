@@ -1,4 +1,4 @@
-## Acknowledgements
+## Funding
 
 This project has received funding from the [European Union LIFE
 program](https://ec.europa.eu/easme/en/life) and the [International Climate
