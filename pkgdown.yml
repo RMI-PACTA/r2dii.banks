@@ -3,7 +3,7 @@ pkgdown: 1.6.0.9000
 pkgdown_sha: 2c210e86c82ea19f74c122c7329dad11a647e956
 articles:
   reference: reference.html
-last_built: 2020-09-11T11:38Z
+last_built: 2020-09-11T12:05Z
 urls:
   reference: https://github.com/2DegreesInvesting/r2dii.banks//reference
   article: https://github.com/2DegreesInvesting/r2dii.banks//articles
