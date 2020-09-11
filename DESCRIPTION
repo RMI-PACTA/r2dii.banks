@@ -26,7 +26,7 @@ Description: The think tank '2DII' (2 Degrees Investing
     Assessment), which enables users to measure the alignment of financial
     portfolios with climate goals. This package makes it easy to install
     and load all '2DII' packages for banks in a single step.
-License: GPL-3
+License: MIT + file LICENSE
 URL: https://github.com/2DegreesInvesting/r2dii.banks,
     https://2degreesinvesting.github.io/r2dii.banks/
 BugReports: 
